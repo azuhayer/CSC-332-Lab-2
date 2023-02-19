@@ -9,7 +9,7 @@
 int main (int argc, char* argv[]) 
 {
     int returnValue;
-    returnValue = open(argv[1], O_CREAT | O_RDWR, 00777);
+    returnValue = open("destination.txt", O_CREAT | O_RDWR, 00777);
 
     if(returnValue == -1) 
     {
