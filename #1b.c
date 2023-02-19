@@ -17,7 +17,7 @@ int main (int argc, char* argv[])
     }
     else 
     {
-        printf("\n File has been successfully opened!\n");
+        printf("\n File successfully opened!\n");
     }
     return 0;
 }
