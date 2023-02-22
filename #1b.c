@@ -8,9 +8,8 @@
 
 int main (int argc, char* argv[]) 
 {
-    char* filePath = argv[1];
     int returnValue;
-    returnValue = open(filePath, O_CREAT | O_RDWR, 00777);
+    returnValue = open(argv[1], O_CREAT | O_RDWR, 00777);
   
     if(returnValue == -1) 
     {
