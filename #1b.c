@@ -8,10 +8,10 @@
 
 int main (int argc, char* argv[]) 
 {
-    int returnValue;
-    returnValue = open("destination.txt", O_CREAT | O_RDWR, 00777);
+    int returnVal;
+    returnVal = open("destination.txt", O_CREAT | O_RDWR, 00777);
 
-    if(returnValue == -1) 
+    if(returnVal == -1) 
     {
         printf("\n Error: %d\n", errno);
     }
