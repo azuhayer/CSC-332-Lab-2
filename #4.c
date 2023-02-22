@@ -33,8 +33,8 @@ int main (int argc, char* argv[])
 
     errno = 0;
 
-    source = open(argv[1], O_RDONLY); //source.txt
-    dest = open(argv[2], O_WRONLY); //destination.txt
+    source = open(argv[1], O_RDONLY);   //source.txt
+    dest = open(argv[2], O_WRONLY);     //destination.txt
 
     if(source != -1) 
     {
