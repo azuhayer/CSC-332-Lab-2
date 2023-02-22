@@ -18,7 +18,6 @@ int main (int argc, char* argv[])
         write(returnVal, buffer, sizeof(buffer));
         close(returnVal);
 
-        //print file content
         printf("%s\n", buffer);
     }
     else 
