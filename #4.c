@@ -54,7 +54,7 @@ int main (int argc, char* argv[])
     else 
     {
         if(errno == ENOENT) 
-            printf("There is no file(s) in directory.\n");
+            printf("There is no such file(s) in directory.\n");
         else if(errno == EACCES) 
             printf ("Permissions denied.\n");
         return 0;
