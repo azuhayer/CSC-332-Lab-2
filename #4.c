@@ -48,7 +48,8 @@ int main (int argc, char* argv[])
             write(dest, c, size);
             write(dest, "XYZ", 3);
         }
-        close(source); close(dest);
+        close(source); 
+        close(dest);
     }
     else 
     {
