@@ -1,43 +1,62 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <string.h>
 
-int main (int argc, char* argv[]) 
+#define BUFFER_SIZE 1024
+
+int main(int argc, char *argv[]) 
 {
-    int source, dest;
-    char buffer[BUFSIZ];
-
-    if(argc != 3) 
+    int src_fd, dst_fd, bytes_read, bytes_written;
+    char buffer[BUFFER_SIZE];
+    
+    if (argc != 3) 
     {
-        printf("Usage: \n");
+        printf("Usage: %s SourceFile DestinationFile\n", argv[0]);
         return 1;
     }
 
-    errno = 0;
-
-    //Open both files
-    source = open(argv[1], O_RDONLY); //source
-    dest = open(argv[2], O_CREAT | O_RDWR, 00777); //destination
-
-    if(source != -1) 
+    src_fd = open(argv[1], O_RDONLY);
+    if (src_fd == -1) 
     {
-        write(dest, buffer, read(source, buffer, sizeof(buffer)));
-
-        //Close both files
-        close(source); 
-        close(dest);
+        perror("Error opening source file");
+        return errno;
     }
 
-    else 
+    dst_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (dst_fd == -1) 
     {
-        if(errno == ENOENT) 
-            printf("There is no file(s) in directory.\n");
-        else if(errno == EACCES) 
-            printf ("Permissions denied.\n");
-        return 0;
+        perror("Error opening destination file");
+        return errno;
+    }
+
+    while ((bytes_read = read(src_fd, buffer, BUFFER_SIZE)) > 0) 
+    {
+        bytes_written = write(dst_fd, buffer, bytes_read);
+        if (bytes_written == -1) 
+        {
+            perror("Error writing to destination file");
+            return errno;
+        }
+    }
+
+    if (bytes_read == -1) 
+    {
+        perror("Error reading source file");
+        return errno;
+    }
+
+    if (close(src_fd) == -1) 
+    {
+        perror("Error closing source file");
+        return errno;
+    }
+
+    if (close(dst_fd) == -1) 
+    {
+        perror("Error closing destination file");
+        return errno;
     }
 
     return 0;
